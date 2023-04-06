@@ -35,7 +35,7 @@ interface Props {
 
 const makeWsClient = () =>
   createWSClient({
-    url: "wss://john-denny-social-media-api.onrender.com",
+    url: "wss://john-denny-social-media-clone-api.onrender.com",
     connectionParams: async () => {
       const authToken = getAccessToken();
       while (!authToken)
@@ -46,7 +46,7 @@ const makeWsClient = () =>
 
 const makeClient = (WsClient: WsClient) =>
   createClient({
-    url: "https://john-denny-socail-media-api.onrender.com",
+    url: "https://john-denny-socail-media-clone-api.onrender.com",
     exchanges: [
       dedupExchange,
       cacheExchange({
