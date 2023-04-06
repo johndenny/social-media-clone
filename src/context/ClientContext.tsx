@@ -46,7 +46,7 @@ const makeWsClient = () =>
 
 const makeClient = (WsClient: WsClient) =>
   createClient({
-    url: "https://john-denny-socail-media-clone-api.onrender.com",
+    url: "https://john-denny-social-media-clone-api.onrender.com",
     exchanges: [
       dedupExchange,
       cacheExchange({
