@@ -1,17 +1,18 @@
 # Social Media Clone
 This project was created to learn about full stack applications by replicating  Instagram.
 
-Features Include:
+**Link to project:** https://https://john-denny-social-media-clone.onrender.com/
+
+![alt tag](http://placecorgi.com/1200/650)
+
+## Features:
+    Features Include:
     Authentication.
     Account Creation.
     Image Uploader and Editor.
     Messages.
     Activity.
     Photo Tags.
-    
-**Link to project:** https://https://john-denny-social-media-clone.onrender.com/
-
-![alt tag](http://placecorgi.com/1200/650)
 
 ## How It's Made:
 
