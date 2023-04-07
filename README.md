@@ -6,7 +6,6 @@ This project was created to learn about full stack applications by replicating  
 ![alt tag](http://placecorgi.com/1200/650)
 
 ## Features:
-    Features Include:
     Authentication.
     Account Creation.
     Image Uploader and Editor.
