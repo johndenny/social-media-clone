@@ -1,5 +1,5 @@
 export const VerifyReset = `
-  mutation($userId: Int!, $resetToken: String!) {
+  mutation($userId: String!, $resetToken: String!) {
     verifyReset(userId: $userId, resetToken: $resetToken) {
       verified
     }
