@@ -3,7 +3,7 @@ This project was created to learn about full stack applications by replicating  
 
 **Link to project:** https://john-denny-social-media-clone.onrender.com/
 
-## Features:
+## Features
 * **Authentication:**
 * **Caching:**
 * **User Profiles:**
@@ -13,19 +13,19 @@ This project was created to learn about full stack applications by replicating  
 * **Activity:**
 * **Content Feeds:**
 
-## Languages & Frameworks:
+## Languages & Frameworks
 * **HTML**
 * **CSS**
 * **Typescript**
 * **React**
 
-## Libraries:
+## Libraries
 * **Urql with Graphql and Graphql-ws**
 * **Styled Components**
 * **React Router**
 * **React Leaflet**
 
-## API's:
+## API's
 * **Open Street Maps**
 * **Cloudinary**
 
