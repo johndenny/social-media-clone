@@ -7,15 +7,20 @@ This project was created to learn about full stack applications by replicating  
 
 ## Features:
 * **Authentication:**
-* **Profile.
-* Image Uploader and Editor.
-* Posts
-* Messages.
-* Activity.
-* Content Feeds.
+* **Profile**.
+* **Image Uploader and Editor**.
+* **Posts**
+* **Messages**.
+* **Activity**.
+* **Content Feeds**.
 
-## How It's Made:
-
+## Tech Used:
+* **HTML**
+* **CSS**
+* **Typescript**
+* **React**
+* **Urql**
+* 
 **Tech used:** HTML, CSS, JavaScript, Framework of choice
 
 Here's where you can go to town on how you actually built this thing. Write as much as you can here, it's totally fine if it's not too much just make sure you write *something*. If you don't have too much experience on your resume working on the front end that's totally fine. This is where you can really show off your passion and make up for that ten fold.
