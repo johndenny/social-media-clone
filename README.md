@@ -1,7 +1,7 @@
 # Social Media Clone
 This project was created to learn about full stack applications by replicating  Instagram.
 
-**Link to project:** https://https://john-denny-social-media-clone.onrender.com/
+**Link to project:** https://john-denny-social-media-clone.onrender.com/
 
 ## Features:
 * **Authentication:**
