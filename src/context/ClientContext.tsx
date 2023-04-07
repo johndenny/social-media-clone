@@ -35,7 +35,10 @@ interface Props {
 
 const makeWsClient = () =>
   createWSClient({
-    url: "wss://john-denny-social-media-clone-api.onrender.com",
+    url:
+      process.env.NODE_ENV === "production"
+        ? "wss://john-denny-social-media-clone-api.onrender.com"
+        : "ws://localhost:4000",
     connectionParams: async () => {
       const authToken = getAccessToken();
       while (!authToken)
@@ -46,7 +49,10 @@ const makeWsClient = () =>
 
 const makeClient = (WsClient: WsClient) =>
   createClient({
-    url: "https://john-denny-social-media-clone-api.onrender.com",
+    url:
+      process.env.NODE_ENV === "production"
+        ? "https://john-denny-social-media-clone-api.onrender.com"
+        : "http://localhost:4000",
     exchanges: [
       dedupExchange,
       cacheExchange({
