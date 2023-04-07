@@ -21,7 +21,7 @@ import {
   PreloadQuery,
 } from "../../../../context/GlobalContext";
 import { BottomLink } from "./styled/BottomLink";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 interface Props {
   selectedIcon: string;
@@ -34,6 +34,7 @@ export const NavigationProfile: React.FC<Props> = ({
 }) => {
   const { setModalAttrs, viewer, user, resultSavedPosts, logOut } =
     useGlobalContext() as globalContextType;
+  const location = useLocation();
   const { data, fetching } = viewer;
   const [isClicked, setIsClicked] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -49,6 +50,15 @@ export const NavigationProfile: React.FC<Props> = ({
       setIsDropDown(false);
     }
   }, [isClicked]);
+
+  useEffect(() => {
+    if (isClicked) setIsAnimating(true);
+  }, [location]);
+
+  const switchClick = () => {
+    setModalAttrs({ type: "log-in-switch" });
+    setIsAnimating(true);
+  };
 
   if (!data || fetching) return <></>;
 
@@ -78,7 +88,7 @@ export const NavigationProfile: React.FC<Props> = ({
             isAnimating={isAnimating}
             onAnimationEnd={() => setIsClicked(false)}
           >
-            <DropDownWidth onClick={() => setIsAnimating(true)}>
+            <DropDownWidth>
               <Triangle
                 color="rgb(var(--primary-background))"
                 height={8}
@@ -121,9 +131,7 @@ export const NavigationProfile: React.FC<Props> = ({
                 </DropDownLink>
               </Link>
 
-              <DropDownLink
-                onClick={() => setModalAttrs({ type: "log-in-switch" })}
-              >
+              <DropDownLink onClick={switchClick}>
                 <SwitchSvg />
                 <span>Switch accounts</span>
               </DropDownLink>
