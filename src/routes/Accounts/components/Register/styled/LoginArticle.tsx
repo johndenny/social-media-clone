@@ -12,5 +12,5 @@ export const LoginArticle = styled.article`
   border-radius: 6px;
   background-color: rgba(255, 255, 255, 1);
   overflow: hidden;
-  padding: 0 40px 44px;
+  padding: 40px;
 `;

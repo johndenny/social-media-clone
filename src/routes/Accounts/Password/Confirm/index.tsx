@@ -11,7 +11,7 @@ import { ConfirmContainer, MatchMessage } from "./styled";
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 interface SavedValues {
-  userId?: number;
+  userId?: string;
   resetToken?: string;
 }
 
@@ -36,7 +36,7 @@ export const Confirm: React.FC = () => {
       if (!userIdString) {
         throw new Error("No User Identified.");
       }
-      const userId = parseInt(userIdString);
+      const userId = userIdString;
       const resetToken = searchParams.get("token");
       if (!resetToken) {
         throw new Error("No Token.");
@@ -131,7 +131,7 @@ export const Confirm: React.FC = () => {
         </ConfirmContainer>
         <PaddedButton
           fetching={confirmResetResult.fetching}
-          margin="8px 40px"
+          margin="24px 0 0 0"
           padding="10px 18px"
           disabled={!isValid}
         >
