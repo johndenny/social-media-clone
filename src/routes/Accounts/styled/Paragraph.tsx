@@ -2,8 +2,10 @@ import styled from "styled-components";
 
 export const Parargraph = styled.p`
   text-align: center;
-  text-align: center;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
   color: #8e8e8e;
   color: rgba(var(--f52, 142, 142, 142), 1);
   font-weight: 400;
