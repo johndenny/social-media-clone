@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { Container, LoginArticle } from "./styled";
+import { Container } from "./styled";
+import { LoginArticle } from "../../styled";
 
 interface Props {}
 
