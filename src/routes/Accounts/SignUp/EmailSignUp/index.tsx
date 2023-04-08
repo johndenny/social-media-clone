@@ -45,12 +45,10 @@ export const EmailSignUp = () => {
     <>
       {isConfirmationSent ? (
         <>
-          <div style={{ margin: "36px 36px 0px 36px" }}>
-            <EmailIcon
-              className="glyphsSpriteEmail_confirm"
-              role="img"
-            ></EmailIcon>
-          </div>
+          <EmailIcon
+            className="glyphsSpriteEmail_confirm"
+            role="img"
+          ></EmailIcon>
           <ConfirmEmail passedValues={values} />
         </>
       ) : (
