@@ -61,6 +61,7 @@ export const ConfirmEmail: React.FC<Props> = ({ passedValues }) => {
         if (result.data) {
           setAccessToken(result.data.signup.accessToken);
           reexecuteViewerQuery();
+          navigate("/");
         }
       });
     }
