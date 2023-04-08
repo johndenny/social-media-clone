@@ -12,6 +12,7 @@ This project was created to learn about full stack applications by replicating  
 * **Messages:**
 * **Activity:**
 * **Content Feeds:**
+* **Mobile Layout**
 
 ## Languages & Frameworks
 * **HTML**
