@@ -4,7 +4,6 @@ mutation($postId: String!) {
     __typename
     id
     isLiked
-    likeCount
   }
 }
 `;
