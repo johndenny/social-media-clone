@@ -2,6 +2,8 @@
 
 This project was created to learn about full stack applications by replicating Instagram.
 
+I am using a free plan at render.com which will shut down my backend after 15 minutes of inactivity. So the first load will take around 30 seconds to start the backend.
+
 **Link to project:** https://john-denny-social-media-clone.onrender.com/
 
 **Guest Account** username: guest password: !Aa12345
