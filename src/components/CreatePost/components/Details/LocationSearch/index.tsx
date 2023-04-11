@@ -20,42 +20,57 @@ export const LocationSearch: React.FC<Props> = () => {
   const [isQueryPaused, setIsQueryPaused] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const [abortController, setAbortController] =
+    useState<AbortController | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (timerRef.current) clearTimeout(timerRef.current);
-    setIsFetching(true);
-    setSearchText(e.currentTarget.value);
+    if (abortController) abortController.abort();
+    setAbortController(new AbortController());
 
-    timerRef.current = setTimeout(() => {
-      setIsQueryPaused(false);
-    }, 300);
+    if (timerRef.current) clearTimeout(timerRef.current);
+
+    setSearchText(e.currentTarget.value);
 
     if (e.currentTarget.value === "") {
       setSearchList([]);
       setIsFetching(false);
-      clearTimeout(timerRef.current);
+      setIsQueryPaused(true);
+      if (timerRef.current) clearTimeout(timerRef.current);
+      return;
     }
+    setIsFetching(true);
+
+    timerRef.current = setTimeout(() => {
+      if (isQueryPaused) setIsQueryPaused(false);
+    }, 300);
   };
 
   useEffect(() => {
-    if (isQueryPaused) return;
-
     const fetchData = async () => {
-      const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?q=${searchText}&addressdetails=1&namedetails=1&limit=16&format=json`
-      );
-      const data = await response.json();
-      setSearchList(data);
       setIsQueryPaused(true);
-      setIsFetching(false);
-      console.log(data);
+      try {
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/search?q=${searchText}&addressdetails=1&namedetails=1&limit=16&format=json`,
+          { signal: abortController?.signal }
+        );
+        const data = await response.json();
+        setSearchList(data);
+        setIsFetching(false);
+      } catch (error) {
+        if (error instanceof Error && error.name === "AbortError")
+          console.log("fetch aborted");
+        else throw error;
+        setIsFetching(false);
+        setIsQueryPaused(true);
+      }
     };
 
-    fetchData();
-  }, [isQueryPaused]);
+    if (!isQueryPaused) fetchData();
+  }, [isQueryPaused, searchText, abortController]);
 
   const resetHandler = (isPostReset: boolean) => {
+    if (abortController) abortController.abort();
     setIsFetching(false);
     setSearchList([]);
     setIsQueryPaused(true);
@@ -98,15 +113,15 @@ export const LocationSearch: React.FC<Props> = () => {
         <LocationMarkerSvg height={16} fill={"rgb(var(--primary-text))"} />
       )}
 
-      {(isFetching || searchList.length !== 0) && (
+      {(isFetching || (searchList.length !== 0 && searchText.length !== 0)) && (
         <SearchList>
           {isFetching ? (
             <Spinner size="large" containerStyle="fill" />
           ) : (
             <div onClick={() => resetHandler(false)}>
-              {searchList.map((location) => {
-                return <LocationItem location={location} />;
-              })}
+              {searchList.map((location) => (
+                <LocationItem key={location.place_id} location={location} />
+              ))}
             </div>
           )}
         </SearchList>
