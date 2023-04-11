@@ -66,12 +66,14 @@ export const PostItem = React.memo(function ({
       unlikeMutation({
         postId: id,
       });
+
       return;
     }
 
     likeMutation({
       postId: id,
     });
+    console.log({ likeResult, postValues });
   };
 
   if (isWide)
