@@ -77,7 +77,6 @@ const makeClient = (WsClient: WsClient) =>
             };
           },
           like(args, cache, info) {
-            console.log("optimistic like");
             return {
               __typename: "Post",
               id: args.postId,

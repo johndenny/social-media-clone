@@ -73,12 +73,7 @@ export const PostItem = React.memo(function ({
     likeMutation({
       postId: id,
     });
-    console.log({ likeResult, postValues });
   };
-
-  useEffect(() => {
-    console.log({ likeResult });
-  }, [likeResult]);
 
   if (isWide)
     return (
