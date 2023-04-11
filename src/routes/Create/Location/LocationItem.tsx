@@ -1,11 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { LocationAddressI, LocationI } from ".";
 import { useCreateContext } from "..";
-import {
-  CreatePostContext,
-  CreatePostContextType,
-} from "../../../context/CreatePostContext";
+import { CreatePostContext } from "../../../context/CreatePostContext";
 import { Container, Span } from "./styled";
 
 interface Props {
@@ -13,7 +9,6 @@ interface Props {
 }
 
 export const LocationItem: React.FC<Props> = ({ location }) => {
-  const navigate = useNavigate();
   const mobileCreateContext = useCreateContext();
   const wideCreateContext = useContext(CreatePostContext);
   const { city, town, village, state, country } = location.address;
@@ -65,8 +60,6 @@ export const LocationItem: React.FC<Props> = ({ location }) => {
       address,
       name: title,
     });
-
-    navigate(-1);
   };
 
   return (
