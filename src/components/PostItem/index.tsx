@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Article } from "./styled";
 import { useMutation } from "urql";
 import { Like, Unlike } from "../../graphQL/mutations";
@@ -75,6 +75,10 @@ export const PostItem = React.memo(function ({
     });
     console.log({ likeResult, postValues });
   };
+
+  useEffect(() => {
+    console.log({ likeResult });
+  }, [likeResult]);
 
   if (isWide)
     return (
