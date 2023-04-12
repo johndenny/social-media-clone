@@ -62,6 +62,7 @@ const makeClient = (WsClient: WsClient) =>
         keys: {
           counts: () => null,
           postCounts: () => null,
+          commentCounts: () => null,
         },
         resolvers: {},
         optimistic: {
@@ -406,7 +407,7 @@ const makeClient = (WsClient: WsClient) =>
             comment(result, args, cache, info) {
               cache
                 .inspectFields("Query")
-                .filter((feild) => feild.fieldName === "commentsPage")
+                .filter((feild) => feild.fieldName === "commentsPaged")
                 .forEach((feild) =>
                   cache.invalidate("Query", feild.fieldName, feild.arguments)
                 );
