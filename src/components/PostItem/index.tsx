@@ -65,6 +65,7 @@ export const PostItem = React.memo(function ({
     if (isLiked) {
       unlikeMutation({
         postId: id,
+        likeCount: postValues.likeCount,
       });
 
       return;
@@ -72,6 +73,7 @@ export const PostItem = React.memo(function ({
 
     likeMutation({
       postId: id,
+      likeCount: postValues.likeCount,
     });
   };
 

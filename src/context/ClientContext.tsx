@@ -9,6 +9,7 @@ import {
   fetchExchange,
   subscriptionExchange,
   Provider,
+  gql,
 } from "urql";
 import { Refresh } from "../graphQL/mutations/Refresh";
 import {
@@ -77,17 +78,21 @@ const makeClient = (WsClient: WsClient) =>
             };
           },
           like(args, cache, info) {
+            const likeCount = info.variables.likeCount as number;
             return {
               __typename: "Post",
               id: args.postId,
               isLiked: true,
+              likeCount: likeCount + 1,
             };
           },
           unlike(args, cache, info) {
+            const likeCount = info.variables.likeCount as number;
             return {
               __typename: "Post",
               id: args.postId,
               isLiked: false,
+              likeCount: likeCount - 1,
             };
           },
           commentLike(args, cache, info) {
