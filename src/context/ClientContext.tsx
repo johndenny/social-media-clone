@@ -20,11 +20,13 @@ import {
   FollowingPosts,
   RecentSearch,
   UniqueChatMessages,
+  SavedPosts,
 } from "../graphQL/queries";
 import { MessageProps } from "../routes/Direct/Chat";
 import { UserNamesI } from "../types";
 import { getAccessToken, setAccessToken } from "../utils/accessToken";
 import { createClient as createWSClient, Client as WsClient } from "graphql-ws";
+import { PostValues } from "../components/PostItem";
 
 export interface ClientStateI {
   resetClient: () => void;
@@ -64,11 +66,9 @@ const makeClient = (WsClient: WsClient) =>
         resolvers: {},
         optimistic: {
           savePost(args, cache, info) {
-            return {
-              __typename: "Post",
-              id: args.postId,
-              isSaved: true,
-            };
+            const post = info.variables.post as PostValues;
+            post.isSaved = true;
+            return post;
           },
           unsavePost(args, cache, info) {
             return {
@@ -211,7 +211,6 @@ const makeClient = (WsClient: WsClient) =>
               const username = (
                 result.unfollow as { follower: { username: string } }
               )?.follower.username;
-              console.log(cache.inspectFields("Query"), username);
               cache
                 .inspectFields("Query")
                 .filter(
@@ -226,7 +225,6 @@ const makeClient = (WsClient: WsClient) =>
                       variables: { ...feild.arguments },
                     },
                     (data: any) => {
-                      console.log(data);
                       if (data)
                         data.following.profiles =
                           data.following.profiles.filter(
@@ -364,14 +362,12 @@ const makeClient = (WsClient: WsClient) =>
                   following: { username: string };
                 }
               )?.following.username;
-              console.log({ username });
               cache.updateQuery(
                 {
                   query: Followers,
                   variables: { limit: 16, skip: 0, username },
                 },
                 (data: any) => {
-                  console.log({ data });
                   if (data)
                     data.followers.profiles = data.followers.profiles.push(
                       (result.confirmFollowRequest as { follower: UserNamesI })
@@ -462,7 +458,13 @@ const makeClient = (WsClient: WsClient) =>
                 .inspectFields("Query")
                 .filter((field) => field.fieldName === "savedPostsPaged")
                 .forEach((field) => {
-                  cache.invalidate("Query", field.fieldName, field.arguments);
+                  cache.updateQuery(
+                    { query: SavedPosts, variables: field.arguments },
+                    (data: any) => {
+                      data.savedPostsPaged.posts.unshift(info.parent.savePost);
+                      return data;
+                    }
+                  );
                 });
               cache
                 .inspectFields("Query")
@@ -476,7 +478,16 @@ const makeClient = (WsClient: WsClient) =>
                 .inspectFields("Query")
                 .filter((field) => field.fieldName === "savedPostsPaged")
                 .forEach((field) => {
-                  cache.invalidate("Query", field.fieldName, field.arguments);
+                  cache.updateQuery(
+                    { query: SavedPosts, variables: field.arguments },
+                    (data: any) => {
+                      data.savedPostsPaged.posts =
+                        data.savedPostsPaged.posts.filter(
+                          (post: any) => post.id !== args.postId
+                        );
+                      return data;
+                    }
+                  );
                 });
               cache
                 .inspectFields("Query")
@@ -590,7 +601,6 @@ const makeClient = (WsClient: WsClient) =>
                 });
             },
             acceptChat(result, args, cache, info) {
-              console.log({ args });
               cache
                 .inspectFields("Query")
                 .filter((field) => field.fieldName === "viewerChatsPaged")
@@ -657,7 +667,6 @@ const makeClient = (WsClient: WsClient) =>
           },
           Subscription: {
             newMessage: (result, args, cache, info) => {
-              console.log(cache.inspectFields("Query"));
               cache
                 .inspectFields("Query")
                 .filter(
@@ -693,9 +702,6 @@ const makeClient = (WsClient: WsClient) =>
                 .forEach((feild) =>
                   cache.invalidate("Query", feild.fieldName, feild.arguments)
                 );
-            },
-            readMessage: (result, args, cache, info) => {
-              console.log(result);
             },
           },
         },

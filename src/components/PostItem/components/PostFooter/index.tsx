@@ -108,7 +108,7 @@ export const PostFooter: React.FC<Props> = ({
     if (isSaved) return unsavePostMutation({ postId: id });
 
     setSavedPostMutationDetails({ postId: id });
-    savePostMutation({ postId: id }).then((result) => {});
+    savePostMutation({ postId: id, post: postValues }).then((result) => {});
   };
 
   const touchDownHandler = () => {

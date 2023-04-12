@@ -52,8 +52,6 @@ export const PhotoGridPage: React.FC<Props> = ({
     if (postsPage.isNextPage === false) scrollDispatch({ type: "last-page" });
   }, [data]);
 
-  console.log(resultPosts);
-
   if (!data || fetching) return <Spinner size={"large"} />;
 
   if (isCollection)

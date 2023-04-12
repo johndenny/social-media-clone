@@ -4,6 +4,15 @@ mutation($postId: String!) {
     __typename
     id
     isSaved
+    text
+    counts {
+      likes
+      comments
+    }
+    photos {
+      aspectRatio
+      id
+    }
   }
 }
 `;

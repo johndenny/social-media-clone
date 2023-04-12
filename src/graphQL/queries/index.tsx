@@ -36,3 +36,4 @@ export * from "./ViewerRequestChats";
 export * from "./UniqueCollection";
 export * from "./ViewerCollections";
 export * from "./ViewerCollectionsSelection";
+export * from "./SavedPosts";
